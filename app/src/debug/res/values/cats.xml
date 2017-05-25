@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="kittys">
+        <item>Tabby</item>
+        <item>Meows</item>
+        <item>Not Tabby</item>
+        <item>Orange Kitty</item>
+        <item>Garfield</item>
+        <item>Garfield Jr.</item>
+        <item>Not a dog</item>
+    </string-array>
+</resources>

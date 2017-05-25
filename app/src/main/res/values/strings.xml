@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">AreYouKittenMe</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cat_facts">Cat Facts</string>
+    <string name="cat_map">Kitty Map</string>
+    <string name="cat_movement">Meowment</string>
+    <string name="map_not_ready">Map Not Ready</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="cat_favs">Favorites</string>
+    <string name="delete">Delete</string>
+</resources>
