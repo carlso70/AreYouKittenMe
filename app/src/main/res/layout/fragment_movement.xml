@@ -4,27 +4,59 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:layout_centerHorizontal="true"
     tools:context="com.example.jimmy.areyoukittenme.MovementFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:text="Accelerometer Data"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:padding="10dp"/>
+
+    <TextView
         android:id="@+id/accel_x"
-        android:text="x" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="x"
+        android:textAlignment="center"
+        android:textSize="30dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="30dp"
         android:id="@+id/accel_y"
+        android:textAlignment="center"
         android:text="y"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15dp"
+        android:textSize="30dp"
+        android:textAlignment="center"
         android:id="@+id/accel_z"
         android:text="z"/>
+
+    <com.skyfishjy.library.RippleBackground
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/content"
+        app:rb_color="#0099CC"
+        app:rb_radius="32dp"
+        app:rb_rippleAmount="4"
+        app:rb_duration="3000"
+        app:rb_scale="6">
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/controlBtn"
+            android:src="@drawable/ic_settings_cell_black_24dp"/>
+    </com.skyfishjy.library.RippleBackground>
 
     <LinearLayout
         android:layout_width="match_parent"

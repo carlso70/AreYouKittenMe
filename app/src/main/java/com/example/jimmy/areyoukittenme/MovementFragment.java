@@ -5,16 +5,15 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.skyfishjy.library.RippleBackground;
 
 
 /**
@@ -27,8 +26,7 @@ public class MovementFragment extends Fragment implements SensorEventListener{
     private TextView xView;
     private TextView yView;
     private TextView zView;
-    private Button playBtn;
-    private Button pauseBtn;
+    private boolean tracking;
 
     public MovementFragment() {
     }
@@ -43,7 +41,7 @@ public class MovementFragment extends Fragment implements SensorEventListener{
         super.onCreate(savedInstanceState);
         sensorManager = (SensorManager) getActivity().getSystemService(getContext().SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        startTracking();
+        tracking = false;
     }
 
     @Override
@@ -53,19 +51,20 @@ public class MovementFragment extends Fragment implements SensorEventListener{
         this.xView = (TextView) view.findViewById(R.id.accel_x);
         this.yView = (TextView) view.findViewById(R.id.accel_y);
         this.zView = (TextView) view.findViewById(R.id.accel_z);
-        this.playBtn = (Button) view.findViewById(R.id.playBtn);
-        this.playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startTracking();
-            }
-        });
 
-        this.pauseBtn = (Button) view.findViewById(R.id.pauseBtn);
-        this.pauseBtn.setOnClickListener(new View.OnClickListener() {
+        final RippleBackground rippleBackground=(RippleBackground) view.findViewById(R.id.content);
+        ImageView imageView=(ImageView)view.findViewById(R.id.controlBtn);
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                stopTracking();
+            public void onClick(View view) {
+                if (tracking) {
+                    rippleBackground.stopRippleAnimation();
+                    stopTracking();
+                } else {
+                    rippleBackground.startRippleAnimation();
+                    startTracking();
+                }
+                tracking = !tracking;
             }
         });
         return view;
@@ -79,12 +78,10 @@ public class MovementFragment extends Fragment implements SensorEventListener{
     @Override
     public void onPause(){
         super.onPause();
-        stopTracking();
     }
 
     public void onResume(){
         super.onResume();
-        startTracking();
     }
 
     @Override
@@ -109,11 +106,11 @@ public class MovementFragment extends Fragment implements SensorEventListener{
     }
 
     public void stopTracking() {
-         sensorManager.unregisterListener(this);
+        sensorManager.unregisterListener(this);
     }
 
     public void startTracking() {
-         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
 }

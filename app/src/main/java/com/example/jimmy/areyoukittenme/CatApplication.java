@@ -13,6 +13,8 @@ public class CatApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Init Realm, and create realmConfiguration
         Realm.init(getApplicationContext());
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(realmConfiguration);

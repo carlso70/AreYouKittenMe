@@ -3,18 +3,15 @@ package com.example.jimmy.areyoukittenme;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.*;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -64,7 +61,6 @@ public class MapsFragment extends Fragment {
 
         mapView = (MapView) view.findViewById(map);
         mapView.onCreate(savedInstanceState);
-
         mapView.onResume(); // needed for the map to start immediately
 
         try {
@@ -72,7 +68,6 @@ public class MapsFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -93,18 +88,18 @@ public class MapsFragment extends Fragment {
             }
         });
 
-
-        zoomIn = (FloatingActionButton) view.findViewById(R.id.fab_zoom_in);
+        FloatingActionButton zoomIn = (FloatingActionButton) view.findViewById(R.id.zoom_in);
         zoomIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 zoomIn();
             }
         });
-        zoomOut = (FloatingActionButton) view.findViewById(R.id.fab_zoom_out);
+
+        final FloatingActionButton zoomOut = (FloatingActionButton) view.findViewById(R.id.zoom_out);
         zoomOut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 zoomOut();
             }
         });
@@ -130,12 +125,14 @@ public class MapsFragment extends Fragment {
     }
 
     public void zoomIn() {
+        System.out.println("zoom in");
         if (googleMap != null)
             googleMap.animateCamera(CameraUpdateFactory.zoomIn());
 
     }
 
     public void zoomOut() {
+        System.out.println("zoom out");
         if (googleMap != null)
             googleMap.animateCamera(CameraUpdateFactory.zoomOut());
     }
