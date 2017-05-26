@@ -50,7 +50,7 @@ dependencies {
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
     compile 'com.squareup.picasso:picasso:2.5.2'
-
+    compile 'com.gjiazhe:PanoramaImageView:1.0'
 
     testCompile 'junit:junit:4.12'
 }

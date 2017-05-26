@@ -1,16 +1,20 @@
 package com.example.jimmy.areyoukittenme.Fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.jimmy.areyoukittenme.Meme;
 import com.example.jimmy.areyoukittenme.MemeAdapter;
@@ -20,13 +24,16 @@ import com.example.jimmy.areyoukittenme.networking.ApiUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
+
 
 /**
  * Fragment containing a list of dank memes
  */
-public class MemeFragment extends Fragment {
+public class MemeFragment extends Fragment  {
 
     private RecyclerView rv;
+    private WaveSwipeRefreshLayout refreshLayout;
 
     public MemeFragment() {
         // Required empty public constructor
@@ -50,10 +57,22 @@ public class MemeFragment extends Fragment {
         rv = (RecyclerView) view.findViewById(R.id.meme_rv);
         rv.setHasFixedSize(true);
 
+        refreshLayout = (WaveSwipeRefreshLayout) view.findViewById(R.id.ptr_facts_layout);
+        refreshLayout.setColorSchemeColors(Color.WHITE, Color.WHITE);
+        refreshLayout.setWaveColor(Color.rgb(63,81,181)); // Same as @color/primary
+
+        refreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
+            @Override public void onRefresh() {
+                new RetrieveMemesTask().execute();
+            }
+        });
+
+
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
 
-        new RetrieveMemesTask().execute();
+        Toast toast = Toast.makeText(getContext(), "Pull down to refresh", Toast.LENGTH_LONG);
+        toast.show();
 
         return view;
     }
@@ -82,6 +101,8 @@ public class MemeFragment extends Fragment {
                 MemeAdapter adapter = new MemeAdapter(memes, getContext());
                 rv.setAdapter(adapter);
             }
+
+            refreshLayout.setRefreshing(false);
         }
     }
 }

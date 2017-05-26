@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -25,6 +24,7 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.MemeViewHolder
         private CardView cardView;
         private TextView memeTextView;
         private ImageView memeThumbnail;
+
         public MemeViewHolder(View v) {
             super(v);
             cardView = (CardView) v.findViewById(R.id.card_view);
@@ -37,7 +37,6 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.MemeViewHolder
         this.data = meme;
         this.context = context;
     }
-
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -54,14 +53,13 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.MemeViewHolder
 
 
     @Override
-    public void onBindViewHolder(MemeViewHolder holder, int position) {
-        holder.memeTextView.setText(data.get(position).getTitle());
-        Picasso.with(context).load(data.get(position).getThumbnail()).into(holder.memeThumbnail);
+    public void onBindViewHolder(final MemeViewHolder holder, final int position) {
+        holder.memeTextView.setText(data.get(position).getName());
+        Picasso.with(context).load(data.get(position).getUrl()).into(holder.memeThumbnail);
     }
 
     @Override
     public int getItemCount() {
         return data.size();
     }
-
 }
