@@ -26,6 +26,17 @@
             </menu>
         </item>
 
+        <item android:title="Memez">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_meme"
+                        android:icon="@drawable/ic_menu_share"
+                        android:title="@string/dank_memes" />
+               </group>
+            </menu>
+        </item>
+
     </group>
 
 </menu>

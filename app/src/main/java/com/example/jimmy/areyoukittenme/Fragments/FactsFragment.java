@@ -1,9 +1,11 @@
-package com.example.jimmy.areyoukittenme;
+package com.example.jimmy.areyoukittenme.Fragments;
 
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,22 +13,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
+import com.example.jimmy.areyoukittenme.R;
 import com.example.jimmy.areyoukittenme.database.DbClient;
 import com.example.jimmy.areyoukittenme.networking.ApiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
-import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
+import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 /**
  * List Fragment containing a list of facts about cats
  */
-public class FactsFragment extends ListFragment implements OnRefreshListener {
+public class FactsFragment extends ListFragment {
 
-    private PullToRefreshLayout refreshLayout;
+    private WaveSwipeRefreshLayout refreshLayout;
     public static final int QUERY_SIZE = 1000;
 
     public FactsFragment() {
@@ -63,15 +65,15 @@ public class FactsFragment extends ListFragment implements OnRefreshListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_facts, container, false);
 
-        refreshLayout = (PullToRefreshLayout) view.findViewById(R.id.ptr_facts_layout);
-        // Now setup the PullToRefreshLayout
-        ActionBarPullToRefresh.from(getActivity())
-                // Mark All Children as pullable
-                .allChildrenArePullable()
-                // Set a OnRefreshListener
-                .listener(this)
-            // Finally commit the setup to our PullToRefreshLayout
-            .setup(refreshLayout);
+        refreshLayout = (WaveSwipeRefreshLayout) view.findViewById(R.id.ptr_facts_layout);
+        refreshLayout.setColorSchemeColors(Color.WHITE, Color.WHITE);
+        refreshLayout.setWaveColor(Color.rgb(63,81,181)); // Same as @color/primary
+
+        refreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
+            @Override public void onRefresh() {
+                new RetrieveCatFactsTask().execute();
+            }
+        });
 
         return view;
     }
@@ -108,27 +110,21 @@ public class FactsFragment extends ListFragment implements OnRefreshListener {
         dialog.show();
     }
 
-    @Override
-    public void onRefreshStarted(View view) {
-        new RetrieveCatFactsTask().execute();
-    }
-
-    class RetrieveCatFactsTask extends AsyncTask<Void, Void, Void> {
-        List<String> facts = new ArrayList<>();
-
+    class RetrieveCatFactsTask extends AsyncTask<Void, Void, List<String>> {
         @Override
-        protected Void doInBackground(Void... params) {
+        protected List<String> doInBackground(Void... params) {
+            List<String> facts = new ArrayList<>();
             ApiUtils.getFacts(facts, QUERY_SIZE);
-            return null;
+            return facts;
         }
 
         @Override
-        protected void onPostExecute(Void v) {
+        protected void onPostExecute(List<String> facts) {
             if (facts != null) {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, facts);
                 setListAdapter(adapter);
             }
-            refreshLayout.setRefreshComplete();
+            refreshLayout.setRefreshing(false);
         }
     }
 }

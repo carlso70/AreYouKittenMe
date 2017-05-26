@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.example.jimmy.areyoukittenme.Fragments.FactsFragment;
 import com.example.jimmy.areyoukittenme.Fragments.FavFactsFragment;
 import com.example.jimmy.areyoukittenme.Fragments.MapsFragment;
+import com.example.jimmy.areyoukittenme.Fragments.MemeFragment;
 import com.example.jimmy.areyoukittenme.Fragments.MovementFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -96,6 +97,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_favs:
                 fragmentClass = FavFactsFragment.class;
+                break;
+            case R.id.nav_meme:
+                fragmentClass = MemeFragment.class;
                 break;
             default:
                 fragmentClass = null;
