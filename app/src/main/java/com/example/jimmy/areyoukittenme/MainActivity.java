@@ -12,8 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
+import com.example.jimmy.areyoukittenme.Fragments.FactsFragment;
+import com.example.jimmy.areyoukittenme.Fragments.FavFactsFragment;
+import com.example.jimmy.areyoukittenme.Fragments.MapsFragment;
+import com.example.jimmy.areyoukittenme.Fragments.MovementFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

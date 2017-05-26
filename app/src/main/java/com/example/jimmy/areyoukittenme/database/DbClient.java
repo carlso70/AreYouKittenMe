@@ -29,7 +29,6 @@ public class DbClient {
             for (Fact fact : results)
                 facts.add(fact.getFact());
         }
-        System.out.println(facts);
         return facts;
     }
 
@@ -37,6 +36,7 @@ public class DbClient {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         RealmResults<Fact> results = realm.where(Fact.class).equalTo("fact", fact).findAll();
+        System.out.println(results);
         results.deleteAllFromRealm();
         realm.commitTransaction();
     }

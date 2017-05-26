@@ -1,4 +1,4 @@
-package com.example.jimmy.areyoukittenme;
+package com.example.jimmy.areyoukittenme.Fragments;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jimmy.areyoukittenme.R;
 import com.skyfishjy.library.RippleBackground;
 
 

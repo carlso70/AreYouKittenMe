@@ -1,4 +1,4 @@
-package com.example.jimmy.areyoukittenme;
+package com.example.jimmy.areyoukittenme.Fragments;
 
 import android.Manifest;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.jimmy.areyoukittenme.R;
 import com.getbase.floatingactionbutton.*;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,10 +20,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-import static android.content.ContentValues.TAG;
 import static com.example.jimmy.areyoukittenme.R.id.map;
 
 
@@ -56,7 +54,7 @@ public class MapsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_maps, container, false);
+        view = inflater.inflate(com.example.jimmy.areyoukittenme.R.layout.fragment_maps, container, false);
         MapsInitializer.initialize(this.getActivity());
 
         mapView = (MapView) view.findViewById(map);

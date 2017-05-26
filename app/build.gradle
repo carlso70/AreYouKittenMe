@@ -20,6 +20,12 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -40,6 +46,7 @@ dependencies {
     compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
     compile 'com.getbase:floatingactionbutton:1.10.1'
+    compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
 
 
     testCompile 'junit:junit:4.12'

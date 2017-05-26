@@ -15,7 +15,7 @@ public class CatApplication extends Application {
         super.onCreate();
 
         // Init Realm, and create realmConfiguration
-        Realm.init(getApplicationContext());
+        Realm.init(this);
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(realmConfiguration);
     }

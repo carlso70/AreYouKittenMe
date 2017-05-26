@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_centerHorizontal="true"
-    tools:context="com.example.jimmy.areyoukittenme.MovementFragment">
+    tools:context="com.example.jimmy.areyoukittenme.Fragments.MovementFragment">
 
     <TextView
         android:layout_width="match_parent"

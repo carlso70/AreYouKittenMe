@@ -4,7 +4,7 @@
     android:name="com.google.android.gms.maps.MapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jimmy.areyoukittenme.MapsFragment">
+    tools:context="com.example.jimmy.areyoukittenme.Fragments.MapsFragment">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"

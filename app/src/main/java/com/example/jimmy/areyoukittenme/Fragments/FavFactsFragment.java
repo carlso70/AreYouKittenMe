@@ -1,34 +1,30 @@
-package com.example.jimmy.areyoukittenme;
+package com.example.jimmy.areyoukittenme.Fragments;
 
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import com.example.jimmy.areyoukittenme.R;
 import com.example.jimmy.areyoukittenme.database.DbClient;
-import com.example.jimmy.areyoukittenme.networking.ApiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
-import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 
 /**
  * List Showing favorite facts
  */
-public class FavFactsFragment extends ListFragment implements OnRefreshListener {
+public class FavFactsFragment extends ListFragment {
 
     private PullToRefreshLayout refreshLayout;
 
@@ -63,16 +59,6 @@ public class FavFactsFragment extends ListFragment implements OnRefreshListener 
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_fav_facts, container, false);
 
-        refreshLayout = (PullToRefreshLayout) view.findViewById(R.id.ptr_favs_layout);
-        // Now setup the PullToRefreshLayout
-        ActionBarPullToRefresh.from(getActivity())
-                // Mark All Children as pullable
-                .allChildrenArePullable()
-                // Set a OnRefreshListener
-                .listener(this)
-                // Finally commit the setup to our PullToRefreshLayout
-                .setup(refreshLayout);
-
         return view;
     }
 
@@ -84,9 +70,10 @@ public class FavFactsFragment extends ListFragment implements OnRefreshListener 
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked OK button
                 DbClient.deleteFact(fact, getContext());
+
+                dialog.dismiss();
                 // retrieve the new list and set it to the adapter
                 new RetrieveFavFactsTask().execute();
-                dialog.dismiss();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -110,27 +97,20 @@ public class FavFactsFragment extends ListFragment implements OnRefreshListener 
         super.onDetach();
     }
 
-    @Override
-    public void onRefreshStarted(View view) {
-        new RetrieveFavFactsTask().execute();
-    }
-
-    class RetrieveFavFactsTask extends AsyncTask<Void, Void, Void> {
-        List<String> facts = new ArrayList<>();
-
+    class RetrieveFavFactsTask extends AsyncTask<Void, Void, List<String>>  {
         @Override
-        protected Void doInBackground(Void... params) {
+        protected List<String> doInBackground(Void... params) {
+            List<String> facts = new ArrayList<>();
             DbClient.getFacts(facts, getContext());
-            return null;
+            return facts;
         }
 
         @Override
-        protected void onPostExecute(Void v) {
+        protected void onPostExecute(List<String> facts) {
             if (facts != null) {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, facts);
                 setListAdapter(adapter);
             }
-            refreshLayout.setRefreshComplete();
         }
     }
 }
