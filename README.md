@@ -8,7 +8,7 @@ LOVE CATS
 
 ## Reasons for inventing this meow-nificent app
 
-An android coding challenge to brush up and review skills.
+* An android coding challenge to brush up and review skills.
 
 ## Authors
 
