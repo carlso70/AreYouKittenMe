@@ -43,14 +43,16 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.google.android.gms:play-services-maps:10.2.6'
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
     compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
     compile 'com.skyfishjy.ripplebackground:library:1.0.1'
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.github.recruit-lifestyle:WaveSwipeRefreshLayout:1.6'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.gjiazhe:PanoramaImageView:1.0'
+
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
 
     testCompile 'junit:junit:4.12'
 }

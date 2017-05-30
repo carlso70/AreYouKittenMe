@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by jamescarlson on 5/26/17.
+ * RecycleAdapter for the MemeRecyleView
  */
 
 public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.MemeViewHolder>  {
@@ -27,11 +28,11 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.MemeViewHolder
 
         public MemeViewHolder(View v) {
             super(v);
-            cardView = (CardView) v.findViewById(R.id.card_view);
             memeTextView = (TextView) v.findViewById(R.id.meme_title);
             memeThumbnail = (ImageView) v.findViewById(R.id.meme_thumbnail);
-        }
-    }
+            cardView = (CardView) v.findViewById(R.id.card_view);
+       }
+   }
 
     public MemeAdapter(List<Meme> meme, Context context) {
         this.data = meme;
@@ -41,7 +42,7 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.MemeViewHolder
     // Create new views (invoked by the layout manager)
     @Override
     public MemeAdapter.MemeViewHolder onCreateViewHolder(ViewGroup parent,
-                                                     int viewType) {
+                                                         int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_meme, parent, false);

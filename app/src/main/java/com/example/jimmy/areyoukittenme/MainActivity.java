@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.jimmy.areyoukittenme.Fragments.FactsFragment;
 import com.example.jimmy.areyoukittenme.Fragments.FavFactsFragment;
@@ -72,8 +73,10 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        System.out.println(id);
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(getApplicationContext(), "SETTINGS PRESSED", Toast.LENGTH_LONG).show();
             return true;
         }
 
