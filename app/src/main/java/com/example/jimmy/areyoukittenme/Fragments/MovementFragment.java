@@ -16,10 +16,10 @@ import android.widget.TextView;
 import com.example.jimmy.areyoukittenme.R;
 import com.skyfishjy.library.RippleBackground;
 
-
 /**
  * Fragment that tracks the accelerometer
  */
+
 public class MovementFragment extends Fragment implements SensorEventListener{
 
     private SensorManager sensorManager;
@@ -29,12 +29,10 @@ public class MovementFragment extends Fragment implements SensorEventListener{
     private TextView zView;
     private boolean tracking;
 
-    public MovementFragment() {
-    }
+    public MovementFragment() {}
 
     public static MovementFragment newInstace(){
-        MovementFragment fragment = new MovementFragment();
-        return fragment;
+        return new MovementFragment();
     }
 
     @Override

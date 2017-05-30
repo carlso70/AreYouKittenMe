@@ -1,55 +1,62 @@
 package com.example.jimmy.areyoukittenme.networking;
 
 import com.example.jimmy.areyoukittenme.Meme;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
+import com.example.jimmy.areyoukittenme.networking.Retrofit.FactService;
+import com.example.jimmy.areyoukittenme.networking.Retrofit.FactsResponse;
+import com.example.jimmy.areyoukittenme.networking.Retrofit.MemeService;
+import com.example.jimmy.areyoukittenme.networking.Retrofit.MemesResponse;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by jimmy on 5/24/17.
  */
 
 public class ApiUtils {
-    public static final String FACT_URL = "http://catfacts-api.appspot.com/api/facts?number=";
-    public static final String MEME_URL = "https://api.imgflip.com/get_memes";
+    private static final String FACT_URL = "http://catfacts-api.appspot.com/";
+    private static final String MEME_URL = "https://api.imgflip.com/";
 
-
-    public static void getFacts(List<String> facts, int factCnt) {
-        String response = HttpRequest.get(FACT_URL + factCnt).body();
-        System.out.println("Response was: " + response);
+    public static void getFacts(List<String> facts, int cnt) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(FACT_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        FactService factService = retrofit.create(FactService.class);
+        Call<FactsResponse> factsResponseCall = factService.getCatFacts(cnt);
+        // Execute retrofit call
         try {
-            JsonElement jelement = new JsonParser().parse(response);
-            JsonObject jobject = jelement.getAsJsonObject();
-            JsonArray jarray = jobject.getAsJsonArray("facts");
-            for (int i = 0; i < jarray.size(); i++) {
-                facts.add(jarray.get(i).toString());
-            }
-        } catch (Exception e){
+            System.out.println(factsResponseCall.request().toString());
+            FactsResponse response = factsResponseCall.execute().body();
+            List<String> factList = response.getFacts();
+            if (factList == null) throw new Exception("FactsResponse is null");
+            for (String fact:factList)
+                facts.add(fact);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void getMemes(List<Meme> memes) {
-        String response = HttpRequest.get(MEME_URL).body();
-        System.out.println("Response was: " + response);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(MEME_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MemeService memeService = retrofit.create(MemeService.class);
+        Call<MemesResponse> memesResponseCall = memeService.getMemes();
         try {
-            JsonElement jelement = new JsonParser().parse(response);
-            JsonObject jobject = jelement.getAsJsonObject();
-            JsonObject jdata = jobject.getAsJsonObject("data");
-            JsonArray jarray = jdata.getAsJsonArray("memes");
-            for (int i = 0; i < jarray.size(); i++) {
-                System.out.println(jarray.get(i));
-                JsonElement name = jarray.get(i).getAsJsonObject().get("name");
-                JsonElement url = jarray.get(i).getAsJsonObject().get("url");
-                memes.add(new Meme(name.getAsString(), url.getAsString()));
-            }
-        } catch (Exception e){
+            MemesResponse memesResponse = memesResponseCall.execute().body();
+            List<Meme> tmpList = memesResponse.getData().getMemes();
+            if (tmpList == null) throw new Exception("memeResponse is null");
+            for (Meme m: tmpList)
+                memes.add(m);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 }

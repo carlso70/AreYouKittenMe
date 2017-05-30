@@ -14,6 +14,8 @@ LOVE CATS
 
 * **Jimmy Carlson** - *Initial work* - [Meow](https://github.com/carlso70)
 
-## Acknowledgments
+## Core Libs Used
 
-* Thanks Mom
+* **Retrofit** - Used for HTTP requests to the various apis
+* **Realm** - Used for keeping persistant storage on the device of favorite cat facts
+* **GSON** - Used as a converter factory for the JSON response for calls made using retrofit

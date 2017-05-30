@@ -40,8 +40,7 @@ public class MemeFragment extends Fragment  {
     }
 
     public static MemeFragment newInstance() {
-        MemeFragment memes = new MemeFragment();
-        return memes;
+        return new MemeFragment();
     }
 
     @Override
@@ -57,16 +56,15 @@ public class MemeFragment extends Fragment  {
         rv = (RecyclerView) view.findViewById(R.id.meme_rv);
         rv.setHasFixedSize(true);
 
+        // Define WaveSwipeRefreshLayout properties
         refreshLayout = (WaveSwipeRefreshLayout) view.findViewById(R.id.ptr_facts_layout);
         refreshLayout.setColorSchemeColors(Color.WHITE, Color.WHITE);
         refreshLayout.setWaveColor(Color.rgb(63,81,181)); // Same as @color/primary
-
         refreshLayout.setOnRefreshListener(new WaveSwipeRefreshLayout.OnRefreshListener() {
             @Override public void onRefresh() {
                 new RetrieveMemesTask().execute();
             }
         });
-
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
@@ -98,7 +96,7 @@ public class MemeFragment extends Fragment  {
         @Override
         protected void onPostExecute(List<Meme> memes) {
             if (memes != null) {
-                MemeAdapter adapter = new MemeAdapter(memes, getContext());
+                MemeAdapter adapter = new MemeAdapter(memes,getContext());
                 rv.setAdapter(adapter);
             }
 
